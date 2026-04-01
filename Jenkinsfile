@@ -23,7 +23,7 @@ stages {
 
     stage('Checkout Code') {
         steps {
-            git branch: 'master', url: 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
+            git branch: 'master', url: 'https://github.com/Rahul-913/E2EWeekDay30_03.git'
         }
     }
 
