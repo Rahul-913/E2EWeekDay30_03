@@ -80,6 +80,20 @@ stages {
     }
 }
 
+stage('Publish Test Results') {
+    steps {
+        junit 'target/surefire-reports/*.xml'
+    }
+}
+
+stage('Allure Report') {
+    steps {
+        allure includeProperties: false,
+               jdk: '',
+               results: [[path: 'target/allure-results']]
+    }
+}
+
 post {
     always {
         echo 'Execution Completed'
