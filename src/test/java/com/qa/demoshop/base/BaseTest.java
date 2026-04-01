@@ -35,6 +35,7 @@ public class BaseTest {
 	@Parameters({ "browserNameXml", "headlessModeXml", "privateModeXml" }) // xml-chrome
 	@BeforeClass
 	public void launchBrowser(String browserNameXml, String headlessModeXml, String privateModeXml) throws IOException {
+
 		logger.info("Launching the browser " + browserNameXml + " with headless mode " + headlessModeXml
 				+ " and private mode as " + privateModeXml + "");
 
@@ -45,6 +46,7 @@ public class BaseTest {
 		String headless = System.getProperty("headless", headlessModeXml);
 		String incognito = System.getProperty("incognito", privateModeXml);
 		String url = System.getProperty("testUrl", rcd.getProperty("testUrl"));
+
 
 		if (browserNameXml != null) {
 			rcd.prop.setProperty("browsername", browser);
@@ -61,6 +63,7 @@ public class BaseTest {
 		driverActions = new WebDriverActions(driver);
 //		driverActions.enterUrl(rcd.getProperty("testUrl"));
 		driverActions.enterUrl(url);
+
 		driverActions.maximizeBrowser();
 		wp = new WelcomePage(driver);
 		rp = new RegisterPage(driver);
