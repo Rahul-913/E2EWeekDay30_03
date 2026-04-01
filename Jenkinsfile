@@ -1,5 +1,6 @@
 pipeline {
-	agent { label 'windows' }   // Ensures it runs on Windows
+	pipeline {
+    agent any   // Ensures it runs on Windows
 	parameters {
     	string(name: 'suiteXmlFile', defaultValue: 'testng.xml', description: 'TestNG suite file name')
     	choice(name: 'browser', choices: ['chrome', 'firefox', 'edge'], description: 'Select browser')
