@@ -1,10 +1,6 @@
 pipeline {
 	agent { label 'windows' }   // Ensures it runs on Windows
-	tools {
-    	maven 'Maven'
-    	jdk 'JDK17'
-		  }
-parameters {
+	parameters {
     	string(name: 'suiteXmlFile', defaultValue: 'testng.xml', description: 'TestNG suite file name')
     	choice(name: 'browser', choices: ['chrome', 'firefox', 'edge'], description: 'Select browser')
     	booleanParam(name: 'headless', defaultValue: true, description: 'Run in headless mode')
