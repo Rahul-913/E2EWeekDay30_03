@@ -1,5 +1,7 @@
 pipeline {
 agent any
+
+
 tools {
     maven 'Maven'
     jdk 'JDK17'
@@ -73,24 +75,24 @@ stages {
         }
     }
 
+    stage('Publish Test Results') {
+        steps {
+            junit 'target/surefire-reports/*.xml'
+        }
+    }
+
+    stage('Allure Report') {
+        steps {
+            allure includeProperties: false,
+                   jdk: '',
+                   results: [[path: 'target/allure-results']]
+        }
+    }
+
     stage('Archive Reports') {
         steps {
             archiveArtifacts artifacts: 'target/**/*', fingerprint: true
         }
-    }
-}
-
-stage('Publish Test Results') {
-    steps {
-        junit 'target/surefire-reports/*.xml'
-    }
-}
-
-stage('Allure Report') {
-    steps {
-        allure includeProperties: false,
-               jdk: '',
-               results: [[path: 'target/allure-results']]
     }
 }
 
@@ -105,4 +107,5 @@ post {
         echo 'Some Tests Failed'
     }
 }
+
 }
