@@ -79,6 +79,19 @@ pipeline {
                 }
             }
         }
+        stage('Publish ChainTest HTML Report') {
+    steps {
+        publishHTML([
+            allowMissing: true,
+            alwaysLinkToLastBuild: false, 
+            keepAll: true, 
+            reportDir: 'target/chaintest', 
+            reportFiles: 'Index.html', 
+            reportName: 'HTML Regression ChainTest Report', 
+            reportTitles: ''
+        ])
+    }
+}
 
         stage('Archive Reports') {
             steps {
