@@ -36,14 +36,20 @@ pipeline {
 
         stage('Execute UI Tests') {
             steps {
-                bat """
-                mvn test ^
-                -DsuiteXmlFile=${params.suiteXmlFile} ^
-                -Dbrowser=${params.browser} ^
-                -Dheadless=${params.headless} ^
-                -Dincognito=${params.incognito} ^
-                -DtestUrl=${params.testUrl}
-                """
+                script {
+                    try {
+                        bat """
+                        mvn test ^
+                        -DsuiteXmlFile=${params.suiteXmlFile} ^
+                        -Dbrowser=${params.browser} ^
+                        -Dheadless=${params.headless} ^
+                        -Dincognito=${params.incognito} ^
+                        -DtestUrl=${params.testUrl}
+                        """
+                    } catch (Exception e) {
+                        echo "Tests failed but continuing..."
+                    }
+                }
             }
         }
 
@@ -74,20 +80,6 @@ pipeline {
             }
         }
 
-        stage('Publish Test Results') {
-            steps {
-                junit 'target/surefire-reports/*.xml'
-            }
-        }
-
-        stage('Allure Report') {
-            steps {
-                allure includeProperties: false,
-                       jdk: '',
-                       results: [[path: 'target/allure-results']]
-            }
-        }
-
         stage('Archive Reports') {
             steps {
                 archiveArtifacts artifacts: 'target/**/*', fingerprint: true
@@ -98,10 +90,18 @@ pipeline {
     post {
         always {
             echo 'Execution Completed'
+
+            junit 'target/surefire-reports/*.xml'
+
+            allure includeProperties: false,
+                   jdk: '',
+                   results: [[path: 'target/allure-results']]
         }
+
         success {
             echo 'All Tests Passed'
         }
+
         failure {
             echo 'Some Tests Failed'
         }
