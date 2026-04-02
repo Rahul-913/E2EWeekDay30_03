@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="UI_Automation" thread-count="2" verbose="4" parallel="tests">
+<listeners>
+<listener class-name="com.qa.demoshop.listeners.AllureListener"></listener>
+</listeners>
+	<test name="Chrome">
+		<parameter name="browserNameXml" value="${browser}" />
+		<parameter name="headlessModeXml" value="${headless}" />
+		<parameter name="privateModeXml" value="${incognito}" />
+		<classes>
+			<class name="com.qa.demoshop.testcases.WelcomePageTest" />
+			<class name="com.qa.demoshop.testcases.RegisterPageTest" />
+		</classes>
+	</test> <!--
+	Test -->
+	<test name="Firefox">
+		<parameter name="browserNameXml" value="${browser}" />
+		<parameter name="headlessModeXml" value="${headless}" />
+		<parameter name="privateModeXml" value="${incognito}" />
+		<classes>
+			<class name="com.qa.demoshop.testcases.WelcomePageTest" />
+			<class name="com.qa.demoshop.testcases.RegisterPageTest" />
+		</classes>
+	</test> <!--
+	Test -->
+</suite> <!--
+Suite -->

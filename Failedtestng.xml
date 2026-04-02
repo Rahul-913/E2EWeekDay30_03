@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	<listeners>
+		<listener class-name="com.qa.demoshop.listeners.AllureListener"></listener>
+		<listener
+			class-name="com.aventstack.chaintest.plugins.ChainTestListener" />
+		<listener class-name="com.qa.demoshop.listeners.AnnotationTransformer"></listener>
+	</listeners>
+	<test name="Failed Test">
+		<parameter name="browserNameXml" value="${browser}" />
+		<parameter name="headlessModeXml" value="${headless}" />
+		<parameter name="privateModeXml" value="${incognito}" />
+		<classes>
+			<class name="com.qa.demoshop.testcases.RegisterPageFailTest" />
+		</classes>
+	</test> <!--
+	Test -->
+</suite> <!--
+Suite -->
